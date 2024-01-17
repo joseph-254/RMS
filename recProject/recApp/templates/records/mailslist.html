@@ -1,0 +1,58 @@
+{% extends 'records/base.html' %}
+
+
+{% block content %}
+<form method="get" action="" autocomplete="off">  
+    {% csrf_token %}
+    <input type="text", name="q", placeholder="search record">
+    <button type="submit">Search</button>
+</form>
+<div class="container-fluid">
+<!-- <table class="table table borderless"> -->
+<table class="table table-striped">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Incoming Date</td>
+            <td>From</td>
+            <td>Reference</td>
+            <td>Subject</td>
+            <td>Dated</td>
+            <td>Remarks</td>
+            <td>File to</td>
+            <td>
+                <a href="{% url 'insert' %}" >
+                    <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Add New</button>  
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in records %}
+            <tr>
+                <td>{{record.register_date}}</td>
+                <td>{{record.sender}}</td>
+                <td>{{record.ref_number}}</td>
+                <td>{{record.subject}}</td>
+                <td>{{record.address_date}}</td>
+                <td>{{record.remarks}}</td>
+                <td>{{record.file_to}}</td>
+                
+                <td>
+                    
+                    <a href="{% url 'update' record.id %}" class="btn text-secondary px-0">
+                        <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+                        <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'delete' record.id %}" class="btn text-secondary px-0">
+                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+</div>
+{% endblock content %}
