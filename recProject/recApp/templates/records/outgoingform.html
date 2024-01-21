@@ -2,7 +2,8 @@
 
 
 {% block content %}
-<h1>Incoming Mails</h1>
+
+<h1>Outgoing Mails</h1>
 <form action="" method="post" autocomplete="off">
     {% csrf_token %}
     <div class="row">
@@ -10,7 +11,7 @@
            <p>Register date</p> {{records.register_date}}
         </div>
         <div class="col-md-6">
-            <p>Sender</p>{{records.sender}}
+            <p>Sender</p>{{records.mail_sender}}
         </div>
         
     </div>
@@ -18,27 +19,28 @@
     <br>
     <div class="row">
         <div class="col-md-4">
-            <p>Ref.number</p> {{records.ref_number}}
+            <p>Receipient </p> {{records.mail_receiver}}
         </div>
         <div class="col-md-6">
+            <p>Reference Number</p>{{records.ref_number}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-8">
             <p>Subject</p>{{records.subject}}
         </div>
     </div>
     <br>
     <div class="row">
         <div class="col-md-4">
-            <p>Address date</p>{{records.address_date}}
+            <p>Collected By</p> {{records.collected_by}}
         </div>
         <div class="col-md-4">
-            <p>File to</p> {{records.file_to}}
+            <p>Collecting Date</p>{{records.collecting_date}}
         </div>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-md-8">
-            <p>remarks</p>{{records.remarks}}
-        </div>
-    </div>
+   
    
     <br>
     <div class="row">
@@ -50,5 +52,5 @@
     </div>
    
    
-</form>
+
 {% endblock content %}

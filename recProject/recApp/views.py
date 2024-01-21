@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from . form import RecForm
-from . models import RecModel
-from django.db.models import Q
+from . form import RecForm, OutgoingMailsForm
+from . models import RecModel, OutgoingModel
+from django.db.models import Q      
 
-# Create your views here.
+#-------------------------------incoming mails module-------------------------------#
 
 def records_form(request, id=0):
     # for rendering the actual form from the form.py
@@ -55,8 +55,39 @@ def records_delete(request, id):
 
 
         
-# def search_view(request):
-#     query = request.GET.get('q')
-#     return RecModel.objects.filter(sender__icontains= query)
-        
-   
+#-------------------------------outgoing mails module-------------------------------#
+
+def outgoing_form(request, id=0):
+    if request.method == 'GET':
+        if id == 0:
+            outgoing_recs = OutgoingMailsForm()
+        else:
+            record_details = OutgoingModel.objects.get(pk=id)
+            outgoing_recs = OutgoingMailsForm(instance = record_details)
+
+        context = {
+            'records': outgoing_recs
+        }
+        return render(request, 'records/outgoingform.html', context)
+
+    else:
+        if id == 0:
+            outgoing_recs =  OutgoingMailsForm(request.POST)
+        else:
+            record_details = OutgoingModel.objects.get(pk=id)
+            outgoing_recs = OutgoingMailsForm(request.POST, instance = record_details)
+
+        if outgoing_recs.is_valid():
+            outgoing_recs.save()
+
+        return redirect('/outgoinglist')
+    
+
+
+def outgoing_list(request):
+    outgoing_recs = OutgoingModel.objects.all()
+    context = {
+        'outgoing_list': outgoing_recs
+    }
+
+    return render(request, 'records/outgoinglist.html', context)
