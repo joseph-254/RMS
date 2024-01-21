@@ -2,6 +2,15 @@
 
 
 {% block content %}
+<form method="get" action="" autocomplete="off">  
+    {% csrf_token %} 
+    <div class="col-sm-4">
+        <div class="form-group has-feedback has-search ">
+            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            <input type="text", name="q" class="form-control" placeholder="Search">
+        </div>
+    </div>
+</form>
 <div class="container-fluid">
     <!-- <table class="table table borderless"> -->
     <table class="table table-striped">
@@ -34,13 +43,13 @@
                     
                     <td>
                         
-                        <a href="{% url 'update' record.id %}" class="btn text-secondary px-0">
+                        <a href="{% url 'outgoing_update' record.id %}" class="btn text-secondary px-0">
                             <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                             <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'delete' record.id %}" class="btn text-secondary px-0">
+                        <a href="{% url 'outgoing_delete' record.id %}" class="btn text-secondary px-0">
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                         </a>
                     </td>

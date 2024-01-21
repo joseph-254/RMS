@@ -85,9 +85,22 @@ def outgoing_form(request, id=0):
 
 
 def outgoing_list(request):
-    outgoing_recs = OutgoingModel.objects.all()
+    if 'q' in request.GET:
+        q= request.GET['q']
+        # records = RecModel.objects.filter(sender__icontains = q)
+        multiple_q = Q(Q(mail_sender__icontains = q) | Q(mail_receiver__icontains = q) | Q(subject__icontains = q))
+        outgoing_recs = OutgoingModel.objects.filter(multiple_q)
+    else:
+        outgoing_recs = OutgoingModel.objects.all()
     context = {
         'outgoing_list': outgoing_recs
     }
 
     return render(request, 'records/outgoinglist.html', context)
+
+
+def delete_outgoing(request, id):
+    rec_to_delete = OutgoingModel.objects.get(pk=id)
+    rec_to_delete.delete() 
+
+    return outgoing_list(request)
