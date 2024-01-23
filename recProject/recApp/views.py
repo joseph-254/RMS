@@ -4,7 +4,7 @@ from . models import RecModel, OutgoingModel
 from django.db.models import Q  
 from django.contrib.auth.models import User 
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
  
 
 
@@ -47,11 +47,26 @@ def signin(request):
             fname = user.first_name
             return render(request, 'records/home.html', {'fname': fname})
         else:
-            messages.error(request, "Incorrect Credentials")
+            messages.warning(request, "Incorrect Credentials")
             return redirect('/')
         
     return render(request, 'records/signin.html')
+
+#-------------------------------End signin module-------------------------------#
+
+
+#-------------------------------signout module-------------------------------#
+
+def signout(request):
+    logout(request)
+    messages.success(request, "Logged out Successfully!")
+    return redirect('/')
+
+
+#-------------------------------End signout module-------------------------------#
   
+
+
 
 #-------------------------------Homepage module-------------------------------#
 
