@@ -1,0 +1,42 @@
+{% extends 'records/users.html' %}
+
+{% block content %}
+<div class="back">
+    <div class="div-center">
+      <div class="content">
+        <h3>User Registration</h3>
+        <hr />
+        <form action="" method="POST" autocomplete="off">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputEmail1">Username</label>
+                <input type="text" name="Username" class="form-control" id="user" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label >First Name</label>
+                <input type="text" name="Firstname" class="form-control" id="first_name" placeholder="First Name">
+            </div>
+            <div class="form-group">
+                <label >Last Name</label>
+                <input type="text" name="Lastname" class="form-control" id="last_name" placeholder="Last Name">
+            </div>
+            <div class="form-group">
+                <label >Email address</label>
+                <input type="email" name="Email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" name="Password1" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Confirm Password</label>
+                <input type="password" name="Password2" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <hr />
+            <a href="{% url 'login'%}"><button type="button" class="btn btn-link">Back to login</button></a>
+        </form>
+      </div>
+      </span>
+    </div>
+    {% endblock content %}
