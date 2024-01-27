@@ -4,7 +4,10 @@ from django.db import models
 #--------------------incoming mails model--------------------#
 
 class FilesModel(models.Model):
-    file = models.CharField(max_length= 255)
+    file_category = models.CharField(max_length= 255)
+    file_name = models.CharField(max_length= 255, unique=True)
+    file_ref_number =  models.CharField(max_length= 255)
+
 
     def __str__(self):
         return self.file
@@ -16,12 +19,12 @@ class RecModel(models.Model):
     subject = models.CharField(max_length = 255)
     address_date = models.DateField()
     remarks = models.CharField(max_length = 255)
-    file_to = models.ForeignKey(FilesModel, on_delete = models.CASCADE)
+    file_to = models.ForeignKey(FilesModel, on_delete = models.CASCADE, to_field='file_name')
+
 
 # class SearchModel(models.Model):
 #     search = models.CharField(max_length = 255)
     
-
 
 
 #--------------------outgoing mails model--------------------#

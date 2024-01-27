@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('subject', models.CharField(max_length=255)),
                 ('address_date', models.DateField()),
                 ('remarks', models.CharField(max_length=255)),
-                ('file_to', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='recApp.filesmodel')),
+                # ('file_to', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='recApp.filesmodel')),
             ],
         ),
     ]

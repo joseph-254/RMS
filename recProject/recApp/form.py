@@ -4,7 +4,7 @@ from . models import RecModel, OutgoingModel
 class RecForm(forms.ModelForm):
     class Meta:
         model = RecModel
-        fields = ('register_date','sender','ref_number','subject','address_date','remarks','file_to')
+        fields = ('register_date','sender','ref_number','subject','address_date','remarks', 'file_to')
     
     def __init__(self, *args, **kwargs):
         super(RecForm, self).__init__(*args, **kwargs)
