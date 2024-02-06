@@ -16,40 +16,33 @@
     <table class="table table-striped">
         <thead class="border-bottom font-weight-bold">
             <tr>
-           
-                <td>Sender</td>
-                <td>Receipient</td>
+                <td>File</td>
+                <td>Category</td>
                 <td>Ref.number</td>
-                <td>Subject</td>
-                <td>Collected By</td>
-                <td>Collecting Date</td>
+                
                 <td>
-                    <a href="{% url 'outgoing_form' %}" >
+                    <a href="{% url 'files_form' %}" >
                         <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Add New</button>  
                     </a>
                 </td>
             </tr>
         </thead>
         <tbody>
-            {% for record in outgoing_list %}
+            {% for file in files_list %}
                 <tr>
-                
-                    <td>{{record.sender}}</td>
-                    <td>{{record.mail_destination}}</td>
-                    <td>{{record.ref_number}}</td>
-                    <td>{{record.description}}</td>
-                    <td>{{record.collected_by}}</td>
-                    <td>{{record.date_of_collection}}</td>
-                    
+                    <td>{{file.name}}</td>
+                    <td>{{file.category}}</td>
+                    <td>{{file.ref_number}}</td>
+        
                     <td>
                         
-                        <a href="{% url 'outgoing_update' record.id %}" class="btn text-secondary px-0">
+                        <a href="{% url 'file_update' file.id %}" class="btn text-secondary px-0">
                             <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                             <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'outgoing_delete' record.id %}" class="btn text-secondary px-0">
+                        <a href="{% url 'file_delete' file.id %}" class="btn text-secondary px-0">
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                         </a>
                     </td>

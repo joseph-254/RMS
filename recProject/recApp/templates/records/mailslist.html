@@ -17,8 +17,8 @@
             <td>Reference</td>
             <td>Subject</td>
             <td>Dated</td>
+            <td>File</td>
             <td>Remarks</td>
-            <td>File to</td>
             <td>
                 <a href="{% url 'insert' %}" >
                     <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Add New</button>  
@@ -29,14 +29,13 @@
     <tbody>
         {% for record in records %}
             <tr>
-                <td>{{record.register_date}}</td>
+              
                 <td>{{record.sender}}</td>
                 <td>{{record.ref_number}}</td>
-                <td>{{record.subject}}</td>
+                <td>{{record.description}}</td>
                 <td>{{record.address_date}}</td>
                 <td>{{record.remarks}}</td>
-                <td>{{record.file_to}}</td>
-                
+                <td>{{record.file}}</td> 
                 <td>
                     
                     <a href="{% url 'update' record.id %}" class="btn text-secondary px-0">

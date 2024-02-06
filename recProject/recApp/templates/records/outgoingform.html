@@ -7,11 +7,11 @@
 <form action="" method="post" autocomplete="off">
     {% csrf_token %}
     <div class="row">
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
            <p>Register date</p> {{records.register_date}}
-        </div>
+        </div> -->
         <div class="col-md-6">
-            <p>Sender</p>{{records.mail_sender}}
+            <p>Sender</p>{{records.sender}}
         </div>
         
     </div>
@@ -19,7 +19,7 @@
     <br>
     <div class="row">
         <div class="col-md-4">
-            <p>Receipient </p> {{records.mail_receiver}}
+            <p>Receipient </p> {{records.mail_destination}}
         </div>
         <div class="col-md-6">
             <p>Reference Number</p>{{records.ref_number}}
@@ -28,7 +28,7 @@
     <br>
     <div class="row">
         <div class="col-md-8">
-            <p>Subject</p>{{records.subject}}
+            <p>Subject</p>{{records.description}}
         </div>
     </div>
     <br>
@@ -37,7 +37,7 @@
             <p>Collected By</p> {{records.collected_by}}
         </div>
         <div class="col-md-4">
-            <p>Collecting Date</p>{{records.collecting_date}}
+            <p>Collecting Date</p>{{records.date_of_collection}}
         </div>
     </div>
    

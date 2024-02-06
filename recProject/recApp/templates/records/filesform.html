@@ -1,0 +1,36 @@
+{% extends 'records/base.html' %}
+
+
+{% block content %}
+<h1>Files</h1>
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <p>File</p>{{files.name}}
+        </div>  
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <p>File Category</p> {{files.category}}
+        </div> 
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <p>File Ref. number</p>{{files.ref_number}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-8">
+            <button class="btn btn-success btn-sm " type="submit">
+                <i class="bi bi-database" aria-hidden="true"></i> Save
+            </button>
+        </div>
+    </div>
+   
+   
+</form>
+{% endblock content %}

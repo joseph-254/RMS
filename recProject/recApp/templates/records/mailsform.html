@@ -6,9 +6,9 @@
 <form action="" method="post" autocomplete="off">
     {% csrf_token %}
     <div class="row">
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
            <p>Register date</p> {{records.register_date}}
-        </div>
+        </div> -->
         <div class="col-md-6">
             <p>Sender</p>{{records.sender}}
         </div>
@@ -19,9 +19,12 @@
     <div class="row">
         <div class="col-md-4">
             <p>Ref.number</p> {{records.ref_number}}
-        </div>
+        </div> 
+    </div>
+    <br>
+    <div class="row">
         <div class="col-md-6">
-            <p>Subject</p>{{records.subject}}
+            <p>Subject</p>{{records.description}}
         </div>
     </div>
     <br>
@@ -29,9 +32,9 @@
         <div class="col-md-4">
             <p>Address date</p>{{records.address_date}}
         </div>
-        <div class="col-md-4">
-            <p>File to</p> {{records.file_to}}
-        </div>
+        <!-- <div class="col-md-4">
+            <p>File to</p> {{records.file_name}}
+        </div> -->
     </div>
     <br>
     <div class="row">
@@ -39,7 +42,13 @@
             <p>remarks</p>{{records.remarks}}
         </div>
     </div>
-   
+    <br>
+    <div class="row">
+        <div class="col-md-8">
+            <p>File</p>{{records.file}}
+        </div>
+    </div>
+    
     <br>
     <div class="row">
         <div class="col-md-8">
