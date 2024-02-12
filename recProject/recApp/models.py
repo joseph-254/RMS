@@ -25,7 +25,7 @@ class BaseAttachments(models.Model):
 class BaseMailRecord(models.Model):
     sender = models.CharField(_("name of the sender"), max_length=156)
     ref_number = models.CharField(_("reference number"), max_length=156)
-    description = models.TextField(_("description"), null=True, blank=True)
+    description = models.CharField(_("description"), max_length = 156)
 
     class Meta:
         abstract = True

@@ -13,7 +13,7 @@ def home(request):
 
 
 
-#-------------------------------incoming mails module-------------------------------#
+#-------------------------------incoming mails module--------------------------#
 
 def records_form(request, id=0):
     # for rendering the actual form from the form.py
@@ -48,7 +48,7 @@ def records_list(request):
     if 'q' in request.GET:
         q= request.GET['q']
         # records = RecModel.objects.filter(sender__icontains = q)
-        multiple_q = Q(Q(sender__icontains = q) | Q(subject__icontains = q))
+        multiple_q = Q(Q(sender__icontains = q) | Q(description__icontains = q))
         records = IncomingMail.objects.filter(multiple_q)
     else:
         records = IncomingMail.objects.all()
@@ -100,7 +100,7 @@ def outgoing_list(request):
     if 'q' in request.GET:
         q= request.GET['q']
         # records = RecModel.objects.filter(sender__icontains = q)
-        multiple_q = Q(Q(sender__icontains = q) | Q(mail_destination_icontains = q) | Q(subject__icontains = q))
+        multiple_q = Q(Q(sender__icontains = q) | Q(mail_destination_icontains = q) | Q(description__icontains = q))
         outgoing_recs = OutGoingMail.objects.filter(multiple_q)
     else:
         outgoing_recs = OutGoingMail.objects.all()
@@ -116,8 +116,6 @@ def delete_outgoing(request, id):
     rec_to_delete.delete() 
 
     return outgoing_list(request)
-
-
 
 
 
@@ -152,7 +150,7 @@ def files_list(request):
     if 'q' in request.GET:
         q= request.GET['q']
         # records = RecModel.objects.filter(sender__icontains = q)
-        multiple_q = Q(Q(mail_sender__icontains = q) | Q(mail_receiver__icontains = q) | Q(subject__icontains = q))
+        multiple_q = Q(Q(name__icontains = q) | Q(category__icontains = q))
         files_rec = BaseAttachments.objects.filter(multiple_q)
     else:
         files_rec = BaseAttachments.objects.all()
@@ -168,195 +166,5 @@ def delete_file(request, id):
     file_to_delete.delete() 
 
     return files_list(request)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# #-------------------------------signup module-------------------------------#
-# def signup(request):
-#     if request.method == 'POST':
-#         # username = request.POST.get('Username')
-#         uname = request.POST['Username']
-#         fname = request.POST['Firstname']
-#         lname = request.POST['Lastname']
-#         email = request.POST['Email']
-#         password1 = request.POST['Password1']
-#         conf_password = request.POST['Password2']
-
-        
-#         myuser = User.objects.create_user(uname,email, password1)
-#         myuser.first_name=fname
-#         myuser.last_name = lname
-#         myuser.save()
-#         messages.success(request, "Your account has been created")
-#         return redirect('/')
-
-#     return render(request, 'records/signup.html')
-
-# #-------------------------------End signup module-------------------------------#
-
-# #-------------------------------signin module-------------------------------#
-
-# def signin(request):
-#     if request.method =='POST':
-#         uname = request.POST['Username']
-#         password1 = request.POST['Password1']
-
-#         user = authenticate(username=uname, password=password1)
-
-
-#         if user is not None:
-#             login(request, user)
-#             fname = user.first_name
-#             return render(request, 'records/home.html', {'fname': fname})
-#         else:
-#             messages.warning(request, "Incorrect Credentials")
-#             return redirect('/')
-        
-#     return render(request, 'records/signin.html')
-
-# #-------------------------------End signin module-------------------------------#
-
-
-# #-------------------------------signout module-------------------------------#
-
-# def signout(request):
-#     logout(request)
-#     messages.success(request, "Logged out Successfully!")
-#     return redirect('/')
-
-
-# #-------------------------------End signout module-------------------------------#
-  
-
-
-
-# #-------------------------------Homepage module-------------------------------#
-
-# def home(request):
-#     return render(request, 'records/home.html')
-
-
-
-# #-------------------------------incoming mails module-------------------------------#
-
-# def records_form(request, id=0):
-#     # for rendering the actual form from the form.py
-
-#     if request.method == 'GET':
-#         if id == 0:
-#             rec_details = RecForm()
-#         else:
-#             rec_from_db = RecModel.objects.get(pk=id)
-#             rec_details = RecForm(instance=rec_from_db)
-            
-#         context = {'records': rec_details}
-#         return render(request, 'records/mailsform.html', context)
-    
-    
-#     else:
-#         # for saving the details keyed from the form into the database
-#         if id ==0:
-#             rec_details = RecForm(request.POST)
-#         # updates the details brought on the form by id
-#         else:
-#             rec_to_update = RecModel.objects.get(pk=id)
-#             rec_details = RecForm(request.POST, instance=rec_to_update)
-#         if rec_details.is_valid():
-#             rec_details.save()
-
-#         return redirect('list/')
-    
-# # for displaying and searching details from the database to the user interface
-# def records_list(request):
-#     # for search operation
-#     if 'q' in request.GET:
-#         q= request.GET['q']
-#         # records = RecModel.objects.filter(sender__icontains = q)
-#         multiple_q = Q(Q(sender__icontains = q) | Q(subject__icontains = q))
-#         records = RecModel.objects.filter(multiple_q)
-#     else:
-#         records = RecModel.objects.all()
-#     context = {'records': records}
-#     return render(request, 'records/mailslist.html', context)
-
-
-# # for deleting records chosen
-# def records_delete(request, id):
-#     record_to_delete = RecModel.objects.get(pk=id)
-#     record_to_delete.delete()
-
-#     return records_list(request)
-
-# #-------------------------------End incoming mails module-------------------------------#
-
-
-        
-# #-------------------------------outgoing mails module-------------------------------#
-
-# def outgoing_form(request, id=0):
-#     if request.method == 'GET':
-#         if id == 0:
-#             outgoing_recs = OutgoingMailsForm()
-#         else:
-#             record_details = OutgoingModel.objects.get(pk=id)
-#             outgoing_recs = OutgoingMailsForm(instance = record_details)
-
-#         context = {
-#             'records': outgoing_recs
-#         }
-#         return render(request, 'records/outgoingform.html', context)
-
-#     else:
-#         if id == 0:
-#             outgoing_recs =  OutgoingMailsForm(request.POST)
-#         else:
-#             record_details = OutgoingModel.objects.get(pk=id)
-#             outgoing_recs = OutgoingMailsForm(request.POST, instance = record_details)
-
-#         if outgoing_recs.is_valid():
-#             outgoing_recs.save()
-
-#         return redirect('/outgoinglist')
-    
-
-
-# def outgoing_list(request):
-#     if 'q' in request.GET:
-#         q= request.GET['q']
-#         # records = RecModel.objects.filter(sender__icontains = q)
-#         multiple_q = Q(Q(mail_sender__icontains = q) | Q(mail_receiver__icontains = q) | Q(subject__icontains = q))
-#         outgoing_recs = OutgoingModel.objects.filter(multiple_q)
-#     else:
-#         outgoing_recs = OutgoingModel.objects.all()
-#     context = {
-#         'outgoing_list': outgoing_recs
-#     }
-
-#     return render(request, 'records/outgoinglist.html', context)
-
-
-# def delete_outgoing(request, id):
-#     rec_to_delete = OutgoingModel.objects.get(pk=id)
-#     rec_to_delete.delete() 
-
-#     return outgoing_list(request)
-
-
-
-
 
 
