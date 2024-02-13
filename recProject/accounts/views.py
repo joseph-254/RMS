@@ -1,63 +1,41 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, get_user_model
+from .forms import LoginForm, RegisterForm
 
 
-#-------------------------------signup module-------------------------------#
-def signup(request):
-    if request.method == 'POST':
-        # username = request.POST.get('Username')
-        uname = request.POST['Username']
-        fname = request.POST['Firstname']
-        lname = request.POST['Lastname']
-        email = request.POST['Email']
-        password1 = request.POST['Password1']
-        conf_password = request.POST['Password2']
-
-        
-        myuser = User.objects.create_user(uname,email, password1)
-        myuser.first_name=fname
-        myuser.last_name = lname
-        myuser.save()
-        messages.success(request, "Your account has been created")
-        return redirect('/')
-
-    return render(request, 'users/signup.html')
-
-#-------------------------------End signup module-------------------------------#
-
-#-------------------------------signin module-------------------------------#
-
-def signin(request):
-    if request.method =='POST':
-        uname = request.POST['Username']
-        password1 = request.POST['Password1']
-
-        user = authenticate(username=uname, password=password1)
-
-
+def login_page(request):
+    form = LoginForm(request.POST or None)
+    context = {
+        'form': form
+    }
+    if form.is_valid():
+        email  = form.cleaned_data.get('email')
+        password  = form.cleaned_data.get('password')
+        user = authenticate(request, username=email, password=password)
+   
         if user is not None:
             login(request, user)
-            fname = user.first_name 
-            return render(request, 'records/home.html', {'fname': fname})
+        
+            return render(request, 'index.html', context)
         else:
-            messages.warning(request, "Incorrect Credentials")
+            # message_from_bytes.warning(request, "Incorrect Credentials")
             return redirect('/')
         
-    return render(request, 'users/signin.html')
-
-#-------------------------------End signin module-------------------------------#
+    return render(request, 'login.html', context)
 
 
-#-------------------------------signout module-------------------------------#
+User = get_user_model()
+def register_page(request):
+    form = RegisterForm(request.POST or None)
+    context = {
+        'form': form
+    }
+    if form.is_valid():
+        form.save()
+      
+    
+    return render(request, "register.html", context)
 
-def signout(request):
-    logout(request)
-    messages.success(request, "Logged out Successfully!")
-    return redirect('/')
 
 
-#-------------------------------End signout module-------------------------------#
-  
 
