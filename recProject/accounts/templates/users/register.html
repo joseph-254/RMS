@@ -1,4 +1,4 @@
-{% extends 'users/users.html' %}
+{% extends 'users/BaseUser.html' %}
 
 {% block content %}
 <div class="back">
@@ -12,14 +12,7 @@
                 <label for="exampleInputEmail1">Username</label>
                 <input type="text" name="Username" class="form-control" id="user" placeholder="Username">
             </div>
-            <div class="form-group">
-                <label >First Name</label>
-                <input type="text" name="Firstname" class="form-control" id="first_name" placeholder="First Name">
-            </div>
-            <div class="form-group">
-                <label >Last Name</label>
-                <input type="text" name="Lastname" class="form-control" id="last_name" placeholder="Last Name">
-            </div>
+            
             <div class="form-group">
                 <label >Email address</label>
                 <input type="email" name="Email" class="form-control" id="exampleInputEmail1" placeholder="Email">
@@ -34,7 +27,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
             <hr />
-            <a href="{% url 'login'%}"><button type="button" class="btn btn-link">Back to login</button></a>
+            <a href="{% url 'login_page'%}"><button type="button" class="btn btn-link">Back to login</button></a>
         </form>
       </div>
       </span>

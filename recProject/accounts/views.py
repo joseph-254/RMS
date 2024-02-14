@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, get_user_model
 from .forms import LoginForm, RegisterForm
+from django.contrib import messages
 
 
 def login_page(request):
@@ -18,10 +19,10 @@ def login_page(request):
         
             return render(request, 'index.html', context)
         else:
-            # message_from_bytes.warning(request, "Incorrect Credentials")
+            messages.warning(request, "Incorrect Credentials")
             return redirect('/')
         
-    return render(request, 'login.html', context)
+    return render(request, 'users/login.html', context)
 
 
 User = get_user_model()
@@ -34,7 +35,7 @@ def register_page(request):
         form.save()
       
     
-    return render(request, "register.html", context)
+    return render(request, "users/register.html", context)
 
 
 

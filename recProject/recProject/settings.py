@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-
+AUTH_USER_MODEL = 'accounts.User' #changes the django built-in user to ours specific
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
