@@ -46,8 +46,8 @@
         <li><a href="{% url 'view_mails'%}">Incoming Mails</a></li>
         <li><a href="{% url 'outgoing_list'%}">Outgoing Mails</a></li>
         <li><a href="{% url 'view_files'%}">Files</a></li>
-        <li><a href="#section3">File movement</a></li>
-        <li><a href="#section3">Leave Roster</a></li>
+        <li><a href="{% url 'view_file_mvnt'%}">File movement</a></li>
+        <!-- <li><a href="#section3">Leave Roster</a></li> -->
       </ul><br>
     </div>
     <br>
@@ -99,7 +99,7 @@
                   Hello {{fname}}
                 {% endif %}
               </a></li>
-              <li><a href="{% url 'signout' %}">Signout</a></li>
+              <li><a href="{% url 'logout' %}">Signout</a></li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

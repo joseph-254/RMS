@@ -14,7 +14,7 @@ class TrackingModel(models.Model):
 class BaseAttachments(models.Model):
     name = models.CharField(_("attachment name"), max_length=156, unique=True )
     category = models.CharField(_("attachment category"), max_length=156)
-    ref_number = models.CharField(_("reference number"), max_length=156)
+    ref_number = models.CharField(_("reference number"), max_length=156, unique=True)
     # attachment = models.FileField(_("file"), upload_to="files/")
 
     def __str__(self):
@@ -47,3 +47,11 @@ class OutGoingMail(TrackingModel, BaseMailRecord):
     date_of_collection = models.DateField(_("date of collection"))
 
 
+class FileMovement(models.Model):
+    file_name   = models.ForeignKey(BaseAttachments, on_delete = models.CASCADE, related_name='file name +', to_field ='name')
+    file_number = models.ForeignKey(BaseAttachments, on_delete = models.CASCADE, related_name='file Ref. Number +', to_field ='ref_number')
+    last_folio  = models.CharField(max_length=156)
+    collected_by= models.CharField(max_length=156)
+    destination_office = models.CharField(max_length=156)
+    date_of_collection = models.DateField(_("date of collection"))
+    remarks = models.CharField(max_length = 156)

@@ -21,4 +21,9 @@ urlpatterns = [
     path('fileslist/', views.files_list, name="view_files"),
     path('files/<int:id>', views.files_form, name="file_update"),
     path('fileslist/<int:id>', views.delete_file, name="file_delete"),
+
+    path('filemovement/', views.file_movement, name="file_mvnt"),
+    path('filemovementlist/', views.files_movement_list, name="view_file_mvnt"),
+    path('filemovement/<int:id>', views.file_movement, name="file_mvnt_update"),
+    # path('filesmovementlist/<int:id>', views.delete_file, name="file_delete"),
 ]

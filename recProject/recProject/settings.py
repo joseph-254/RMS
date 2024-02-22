@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# SESSION_COOKIE_DOMAIN = None
+# SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
 AUTH_USER_MODEL = 'accounts.User' #changes the django built-in user to ours specific
 
 MIDDLEWARE = [

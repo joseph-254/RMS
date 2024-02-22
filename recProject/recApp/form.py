@@ -1,6 +1,6 @@
 from django import forms
 # from . models import RecModel, OutgoingModel
-from .models import IncomingMail, OutGoingMail, BaseAttachments
+from .models import IncomingMail, OutGoingMail, BaseAttachments, FileMovement
 
 class IncomingMailsForm(forms.ModelForm):
     class Meta:
@@ -45,5 +45,16 @@ class FilesForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(FilesForm, self).__init__(*args, **kwargs)
-        for fiel_name, field in self.fields.items():
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+
+class FileMovementForm(forms.ModelForm):
+    class Meta:
+        model = FileMovement
+        fields = ('file_name', 'file_number', 'last_folio', 'collected_by', 'destination_office', 'date_of_collection', 'remarks')
+
+    def __init__(self, *args, **kwargs):
+        super(FileMovementForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})

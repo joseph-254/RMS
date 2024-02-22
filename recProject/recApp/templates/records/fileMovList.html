@@ -1,0 +1,63 @@
+{% extends 'records/base.html' %}
+
+
+{% block content %}
+<form method="get" action="" autocomplete="off">  
+    {% csrf_token %} 
+    <div class="col-sm-4">
+        <div class="form-group has-feedback has-search ">
+            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            <input type="text", name="q" class="form-control" placeholder="Search">
+        </div>
+    </div>
+</form>
+<div class="container-fluid">
+    <!-- <table class="table table borderless"> -->
+    <table class="table table-striped">
+        <thead class="border-bottom font-weight-bold">
+            <tr>
+                <td>File</td>
+                <td>Ref.Number</td>
+                <td>Last Folio</td>
+                <td>Collected by</td>
+                <td>destination</td>
+                <td>collection date</td>
+                <td>Remarks</td>
+                
+                <td>
+                    <a href="{% url 'file_mvnt' %}" >
+                        <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Add New</button>  
+                    </a>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in file_movement_list %}
+                <tr>
+                    <td>{{file.file_name}}</td>
+                    <td>{{file.file_number}}</td>
+                    <td>{{file.last_folio}}</td>
+                    <td>{{file.collected_by}}</td>
+                    <td>{{file.destination_office}}</td>
+                    <td>{{file.date_of_collection}}</td>
+                    <td>{{file.remarks}}</td>
+        
+                    <td>
+                        
+                        <a href="{% url 'file_mvnt_update' file.id %}" class="btn text-secondary px-0">
+                            <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+                            <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
+                        </a>
+                    </td>
+                    <!-- <td>
+                        <a href="{% url 'file_delete' file.id %}" class="btn text-secondary px-0">
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                        </a>
+                    </td> -->
+                </tr>
+            {% endfor %}
+    
+        </tbody>
+    </table>
+    </div>
+{% endblock content %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from . form import IncomingMailsForm, OutgoingMailsForm, FilesForm
-from . models import IncomingMail,  OutGoingMail, BaseAttachments
+from . form import IncomingMailsForm, OutgoingMailsForm, FilesForm, FileMovementForm
+from . models import IncomingMail,  OutGoingMail, BaseAttachments, FileMovement
 # from . models import RecModel, OutgoingModel
 from django.db.models import Q  
 
@@ -167,4 +167,60 @@ def delete_file(request, id):
 
     return files_list(request)
 
+
+#-------------------------------End Files module-------------------------------#
+
+
+
+
+#-------------------------------File movement module-------------------------------#
+
+def file_movement(request, id=0):
+    if request.method == 'GET':
+        if id == 0:
+            file_movement_rec = FileMovementForm()
+        else:
+            files_details = FileMovement.objects.get(pk=id)
+            file_movement_rec = FileMovementForm(instance = files_details)
+
+        context = {
+            'fileMovement': file_movement_rec
+        }
+        return render(request, 'records/fileMovement.html', context)
+
+    else:
+        if id == 0:
+            file_movement_rec =  FileMovementForm(request.POST)
+        else:
+            files_details = FileMovement.objects.get(pk=id)
+            file_movement_rec = FileMovementForm(request.POST, instance = files_details)
+
+        if file_movement_rec.is_valid():
+            file_movement_rec.save()
+
+        return redirect('/filemovementlist')
+    
+def files_movement_list(request):
+    if 'q' in request.GET:
+        q= request.GET['q']
+        # records = RecModel.objects.filter(sender__icontains = q)
+        multiple_q = Q(Q(name__icontains = q) | Q(category__icontains = q))
+        files_rec = FileMovement.objects.filter(multiple_q)
+    else:
+        files_rec = FileMovement.objects.all()
+    context = {
+        'file_movement_list': files_rec
+    }
+
+    return render(request, 'records/fileMovList.html', context)
+
+
+# def delete_file(request, id):
+#     file_to_delete = FileMovement.objects.get(pk=id)
+#     file_to_delete.delete() 
+
+#     return files_list(request)
+
+
+#-------------------------------End File movement module-------------------------------#
 

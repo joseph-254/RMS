@@ -1,0 +1,51 @@
+{% extends 'records/base.html' %}
+
+
+{% block content %}
+<h1>File movement</h1>
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <p>File Name</p>{{fileMovement.file_name}}
+        </div>  
+        <div class="col-md-6">
+            <p>File Ref. Number</p>{{fileMovement.file_number}}
+        </div>  
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <p>Last Folio</p> {{fileMovement.last_folio}}
+        </div> 
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Collected By</p>{{fileMovement.collected_by}}
+        </div>
+        <div class="col-md-6">
+            <p>destination_officer</p>{{fileMovement.destination_office}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Collection Date</p>{{fileMovement.date_of_collection}}
+        </div>
+        <div class="col-md-6">
+            <p>Remarks</p>{{fileMovement.remarks}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-8">
+            <button class="btn btn-success btn-sm " type="submit">
+                <i class="bi bi-database" aria-hidden="true"></i> Save
+            </button>
+        </div>
+    </div>
+   
+   
+</form>
+{% endblock content %}
