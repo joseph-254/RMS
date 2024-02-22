@@ -12,7 +12,7 @@
 <table class="table table-striped">
     <thead class="border-bottom font-weight-bold">
         <tr>
-            <td>Incoming Date</td>
+            <!-- <td>Incoming Date</td> -->
             <td>From</td>
             <td>Reference</td>
             <td>Subject</td>
@@ -34,8 +34,8 @@
                 <td>{{record.ref_number}}</td>
                 <td>{{record.description}}</td>
                 <td>{{record.address_date}}</td>
-                <td>{{record.remarks}}</td>
                 <td>{{record.file}}</td> 
+                <td>{{record.remarks}}</td>
                 <td>
                     
                     <a href="{% url 'update' record.id %}" class="btn text-secondary px-0">

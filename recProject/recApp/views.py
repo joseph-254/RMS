@@ -204,7 +204,7 @@ def files_movement_list(request):
     if 'q' in request.GET:
         q= request.GET['q']
         # records = RecModel.objects.filter(sender__icontains = q)
-        multiple_q = Q(Q(name__icontains = q) | Q(category__icontains = q))
+        multiple_q = Q(Q(collected_by__icontains = q) | Q(destination_office__icontains = q))
         files_rec = FileMovement.objects.filter(multiple_q)
     else:
         files_rec = FileMovement.objects.all()
