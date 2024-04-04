@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from .forms import LoginForm, RegisterForm
 from django.contrib import messages, auth
+from recProject import settings
+from django.core.mail import send_mail
 
 
 # from django.contrib.auth.models import auth
@@ -67,11 +69,39 @@ def register_page(request):
         password1 = request.POST['Password1']
         conf_password = request.POST['Password2']
 
+        if User.objects.filter(username=uname):
+            messages.error(request, "Username already exist! Please try using another username")  
+            return render(request, 'users/register.html') 
         
-        myuser = User.objects.create_user(email,uname, password1)
-        myuser.save()
-        messages.success(request, "Your account has been created")
-        return redirect('/')
+        if User.objects.filter(email=email):
+            messages.error(request, "Email already registered!")
+            return render(request, 'users/register.html')
+        
+        if len(uname)>10:
+            messages.error(request, "Username must be under 10 characters")
+            return render(request, 'users/register.html')
+
+        if password1 != conf_password:
+            messages.error(request, "Passwords did not match!")
+            return render(request, 'users/register.html')
+
+        else:
+        
+            myuser = User.objects.create_user(email,uname, password1)
+            myuser.username = uname
+            myuser.save()
+            messages.success(request, "Your account has been created, check your email for verification")
+
+
+            # Welcome Email
+            subject = "welcome to the RMS!"
+            message = "Hello" + myuser.username + "\n" + "Welcome to RMS!! \n Thank you for visiting our platform, please confirm your email address to activate your account"
+            from_email = settings.EMAIL_HOST_USER
+            to_list = [myuser.email]
+            send_mail(subject, message, from_email, to_list, fail_silently= True)
+
+
+            return redirect('/')
 
     return render(request, 'users/register.html')
 

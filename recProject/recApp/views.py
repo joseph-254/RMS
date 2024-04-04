@@ -100,7 +100,7 @@ def outgoing_list(request):
     if 'q' in request.GET:
         q= request.GET['q']
         # records = RecModel.objects.filter(sender__icontains = q)
-        multiple_q = Q(Q(sender__icontains = q) | Q(mail_destination_icontains = q) | Q(description__icontains = q))
+        multiple_q = Q(Q(collected_by__icontains = q) )
         outgoing_recs = OutGoingMail.objects.filter(multiple_q)
     else:
         outgoing_recs = OutGoingMail.objects.all()
